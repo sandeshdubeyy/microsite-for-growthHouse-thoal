@@ -1,7 +1,7 @@
 function HeroSection() {
     return (
-        <section className="w-full">
-            <div className="grid min-h-[calc(100vh-72px)] grid-cols-2 items-center gap-16 py-16">
+        <section className="px-7.5">  {/* Add this */}
+            <div className="grid min-h-[calc(100vh-72px)] grid-cols-2 items-center gap-16 py-8">
                 <div>
                     <p className="mb-5 text-sm font-medium uppercase tracking-[0.2em] text-gray-500">
                         A New Address For Growth
