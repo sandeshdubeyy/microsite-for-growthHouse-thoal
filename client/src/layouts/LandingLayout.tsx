@@ -5,14 +5,12 @@ interface LandingLayoutProps {
     children: ReactNode;
 }
 
-function LandingLayout({
-    children,
-}: LandingLayoutProps) {
+function LandingLayout({ children }: LandingLayoutProps) {
     return (
         <>
-            <Navbar />
 
-            <main>
+            <main className="w-full px-12">
+            <Navbar />
                 {children}
             </main>
         </>
