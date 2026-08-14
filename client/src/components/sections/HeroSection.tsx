@@ -1,62 +1,273 @@
-function HeroSection() {
+import { motion, useScroll, useTransform, type Variants } from "motion/react";
+import { useRef } from "react";
+import heroSectionImg from "../../assets/images/heroSection.png";
+
+const containerVariants: Variants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.35,
+        },
+    },
+};
+
+const panelVariants: Variants = {
+    hidden: { opacity: 0, x: -32 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
+const wordVariants: Variants = {
+    hidden: { opacity: 0, y: "100%" },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
+const imageVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 },
+    },
+};
+
+const dividerVariants: Variants = {
+    hidden: { scaleY: 0 },
+    visible: {
+        scaleY: 1,
+        transition: { duration: 0.5, ease: "easeOut" },
+    },
+};
+
+const bracketVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: {
+        pathLength: 1,
+        opacity: 1,
+        transition: { duration: 0.6, ease: "easeOut", delay: 1 },
+    },
+};
+
+const architecturalLineVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: {
+        pathLength: 1,
+        opacity: 1,
+        transition: { duration: 2, ease: "easeInOut", delay: 0.4 },
+    },
+};
+
+const sweepVariants: Variants = {
+    hidden: { x: "-120%", opacity: 1 },
+    visible: {
+        x: "250%",
+        opacity: [1, 1, 0],
+        transition: { duration: 1.4, ease: "easeInOut", delay: 1.2 },
+    },
+};
+
+const headline = "Discover A Better Way To Own Your Future Home.";
+
+function CornerBracket({ className, flip }: { className: string; flip?: boolean; }) {
     return (
-        <section className="px-7.5">  {/* Add this */}
-            <div className="grid min-h-[calc(100vh-72px)] grid-cols-2 items-center gap-16 py-8">
-                <div>
-                    <p className="mb-5 text-sm font-medium uppercase tracking-[0.2em] text-gray-500">
-                        A New Address For Growth
-                    </p>
+        <svg
+            className={className}
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            style={flip ? { transform: "scale(-1, -1)" } : undefined}
+        >
+            <motion.path
+                d="M0 10 V0 H10"
+                stroke="black"
+                strokeWidth="1.5"
+                variants={bracketVariants}
+            />
+        </svg>
+    );
+}
 
-                    <h1 className="max-w-2xl text-6xl font-bold leading-[1.05] tracking-tight">
-                        Discover A Better Way To Own Your Future Home.
-                    </h1>
+function HeroSection() {
+    const imageRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: imageRef,
+        offset: ["start end", "end start"],
+    });
+    const imageY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
-                    <p className="mt-7 max-w-xl text-lg leading-8 text-gray-600">
-                        Explore thoughtfully designed homes, modern living,
-                        and an opportunity to be part of a growing destination.
-                    </p>
+    return (
+        <section className="relative overflow-hidden px-4 sm:px-6 md:px-12 lg:px-16">
+            {/* Dot-grid background */}
+            <svg
+                className="pointer-events-none absolute inset-0 h-full w-full text-gray-300"
+                aria-hidden="true"
+            >
+                <defs>
+                    <pattern
+                        id="dot-grid"
+                        width="28"
+                        height="28"
+                        patternUnits="userSpaceOnUse"
+                    >
+                        <circle cx="1.5" cy="1.5" r="1.5" fill="currentColor" opacity="0.35" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#dot-grid)" />
+            </svg>
 
-                    <div className="mt-8">
-                        <a
-                            href="#enquire"
-                            className="inline-flex items-center justify-center rounded-lg bg-black px-7 py-4 text-sm font-medium text-white transition-opacity hover:opacity-80"
+            {/* Architectural line-drawing accent */}
+            <svg
+                className="pointer-events-none absolute -right-10 top-10 hidden h-[420px] w-[420px] text-gray-300 md:block lg:h-[520px] lg:w-[520px]"
+                viewBox="0 0 400 400"
+                fill="none"
+                aria-hidden="true"
+            >
+                <motion.path
+                    d="M40 320 L40 160 L200 60 L360 160 L360 320 M100 320 L100 200 L160 200 L160 320 M220 320 L220 220 L300 220 L300 320 M40 220 L360 220"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    variants={architecturalLineVariants}
+                    initial="hidden"
+                    animate="visible"
+                />
+            </svg>
+
+            <motion.div
+                className="relative z-10 grid min-h-fit grid-cols-1 items-stretch gap-14 py-10 md:min-h-[calc(100vh-5rem)] md:grid-cols-2 md:gap-12 md:py-8 lg:gap-16"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                <div className="relative">
+                    {/* Black panel, diagonal cut into the image side on desktop */}
+                    <motion.div
+                        variants={panelVariants}
+                        className="absolute inset-0 -z-0 rounded-3xl bg-black"
+                        aria-hidden="true"
+                    />
+
+                    <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
+                        <motion.p
+                            variants={fadeUp}
+                            className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-gray-400 sm:mb-5 sm:text-sm"
                         >
-                            Enquire Now
-                        </a>
-                    </div>
+                            A New Address For Growth
+                        </motion.p>
 
-                    <div className="mt-14 flex items-center gap-10">
-                        <div>
-                            <p className="text-2xl font-bold">
-                                Premium
-                            </p>
+                        <h1 className="relative max-w-2xl overflow-hidden text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.05]">
+                            {headline.split(" ").map((word, i) => (
+                                <span key={i} className="mr-[0.25em] inline-block overflow-hidden">
+                                    <motion.span
+                                        variants={wordVariants}
+                                        className="inline-block"
+                                    >
+                                        {word}
+                                    </motion.span>
+                                </span>
+                            ))}
 
-                            <span className="text-sm text-gray-500">
-                                Living Experience
-                            </span>
-                        </div>
+                            {/* Light-sweep reveal */}
+                            <motion.span
+                                variants={sweepVariants}
+                                initial="hidden"
+                                animate="visible"
+                                className="pointer-events-none absolute inset-y-0 left-0 w-1/3 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/50 to-transparent mix-blend-screen"
+                                aria-hidden="true"
+                            />
+                        </h1>
 
-                        <div className="h-10 w-px bg-gray-200" />
+                        <motion.p
+                            variants={fadeUp}
+                            className="mt-5 max-w-xl text-base leading-7 text-gray-300 sm:mt-7 sm:text-lg sm:leading-8"
+                        >
+                            Explore thoughtfully designed homes, modern living,
+                            and an opportunity to be part of a growing destination.
+                        </motion.p>
 
-                        <div>
-                            <p className="text-2xl font-bold">
-                                Growing
-                            </p>
+                        <motion.div variants={fadeUp} className="mt-6 sm:mt-8">
+                            <motion.a
+                                href="#enquire"
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-gray-200 sm:px-7 sm:py-4"
+                            >
+                                Enquire Now
+                            </motion.a>
+                        </motion.div>
 
-                            <span className="text-sm text-gray-500">
-                                Investment Opportunity
-                            </span>
-                        </div>
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-10 flex items-center gap-6 sm:mt-14 sm:gap-10"
+                        >
+                            <div>
+                                <p className="text-xl font-bold text-white sm:text-2xl">
+                                    Premium
+                                </p>
+
+                                <span className="text-xs text-gray-400 sm:text-sm">
+                                    Living Experience
+                                </span>
+                            </div>
+
+                            <motion.div
+                                variants={dividerVariants}
+                                style={{ transformOrigin: "top" }}
+                                className="h-10 w-px bg-white/20"
+                            />
+
+                            <div>
+                                <p className="text-xl font-bold text-white sm:text-2xl">
+                                    Growing
+                                </p>
+
+                                <span className="text-xs text-gray-400 sm:text-sm">
+                                    Investment Opportunity
+                                </span>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
 
-                <div className="flex min-h-[600px] items-center justify-center rounded-2xl bg-gray-100">
-                    <span className="text-sm text-gray-400">
-                        Hero Image / Project Visual
-                    </span>
-                </div>
-            </div>
-        </section>
+                <motion.div
+                    ref={imageRef}
+                    variants={imageVariants}
+                    style={{ y: imageY }}
+                    className="relative order-first flex min-h-[280px] items-center justify-center overflow-hidden rounded-2xl bg-gray-100 sm:min-h-[360px] md:order-none md:min-h-0 lg:min-h-0"
+                >
+                    <img
+                        src={heroSectionImg}
+                        alt="Property visual"
+                        className="block h-full w-full object-cover"
+                    />
+
+                    <motion.div initial="hidden" animate="visible">
+                        <CornerBracket className="absolute -left-1 -top-1" />
+                        <CornerBracket className="absolute -right-1 -top-1 rotate-90" />
+                        <CornerBracket className="absolute -bottom-1 -left-1 -rotate-90" />
+                        <CornerBracket className="absolute -bottom-1 -right-1 rotate-180" />
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+        </section >
     );
 }
 
