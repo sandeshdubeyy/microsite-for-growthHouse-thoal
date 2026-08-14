@@ -15,10 +15,7 @@ body {
   overflow-x: hidden;
 }
 
-svg,
-video {
-  display: block;
-}
+
 
 button,
 input,
@@ -31,6 +28,5 @@ button {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }
