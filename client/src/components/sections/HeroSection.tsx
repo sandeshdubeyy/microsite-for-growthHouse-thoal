@@ -83,7 +83,14 @@ const sweepVariants: Variants = {
     },
 };
 
-const headline = "Discover A Better Way To Own Your Future Home.";
+// Headline split into words, with the key phrase flagged for the green accent color
+const headlineWords = [
+    { text: "Where" },
+    { text: "Naigaon's" },
+    { text: "Growth", accent: true },
+    { text: "Story", accent: true },
+    { text: "Begins." },
+];
 
 function CornerBracket({ className, flip }: { className: string; flip?: boolean; }) {
     return (
@@ -169,17 +176,17 @@ function HeroSection() {
                             variants={fadeUp}
                             className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-gray-400 sm:mb-5 sm:text-sm"
                         >
-                            A New Address For Growth
+                            Naigaon's Growth Corridor, Redefined
                         </motion.p>
 
                         <h1 className="relative max-w-2xl overflow-hidden text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.05]">
-                            {headline.split(" ").map((word, i) => (
+                            {headlineWords.map(({ text, accent }, i) => (
                                 <span key={i} className="mr-[0.25em] inline-block overflow-hidden">
                                     <motion.span
                                         variants={wordVariants}
-                                        className="inline-block"
+                                        className={`inline-block ${accent ? "text-green-500" : ""}`}
                                     >
-                                        {word}
+                                        {text}
                                     </motion.span>
                                 </span>
                             ))}
@@ -198,8 +205,8 @@ function HeroSection() {
                             variants={fadeUp}
                             className="mt-5 max-w-xl text-base leading-7 text-gray-300 sm:mt-7 sm:text-lg sm:leading-8"
                         >
-                            Explore thoughtfully designed homes, modern living,
-                            and an opportunity to be part of a growing destination.
+                            9 highrise towers, 80+ lifestyle amenities, and a home just 2 minutes
+                            from Naigaon Station — by HoABL, India's largest land buyer in 2024.
                         </motion.p>
 
                         <motion.div variants={fadeUp} className="mt-6 sm:mt-8">
@@ -220,11 +227,11 @@ function HeroSection() {
                         >
                             <div>
                                 <p className="text-xl font-bold text-white sm:text-2xl">
-                                    Premium
+                                    9+ Towers
                                 </p>
 
                                 <span className="text-xs text-gray-400 sm:text-sm">
-                                    Living Experience
+                                    G+35 Storey Highrises
                                 </span>
                             </div>
 
@@ -236,11 +243,11 @@ function HeroSection() {
 
                             <div>
                                 <p className="text-xl font-bold text-white sm:text-2xl">
-                                    Growing
+                                    80+ Amenities
                                 </p>
 
                                 <span className="text-xs text-gray-400 sm:text-sm">
-                                    Investment Opportunity
+                                    Across 6 Lifestyle Zones
                                 </span>
                             </div>
                         </motion.div>
@@ -267,7 +274,7 @@ function HeroSection() {
                     </motion.div>
                 </motion.div>
             </motion.div>
-        </section >
+        </section>
     );
 }
 
