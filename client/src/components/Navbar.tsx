@@ -2,11 +2,10 @@ import logo from "../assets/images/logo.webp"
 
 const navLinks = [
     { label: "Overview", href: "#overview" },
-    { label: "Highlights", href: "#highlights" },
     { label: "Amenities", href: "#amenities" },
+    { label: "Location", href: "#location" },
     { label: "Floor Plans", href: "#floor-plans" },
     { label: "Gallery", href: "#gallery" },
-    { label: "Location", href: "#location" },
     { label: "FAQ", href: "#faq" },
 ];
 

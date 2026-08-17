@@ -164,12 +164,28 @@ function HeroSection() {
                 animate="visible"
             >
                 <div className="relative">
-                    {/* Black panel, diagonal cut into the image side on desktop */}
+                    {/* Desktop panel: solid black background */}
+                    
                     <motion.div
                         variants={panelVariants}
-                        className="absolute inset-0 -z-0 rounded-3xl bg-black"
+                        className="absolute inset-0 -z-0 hidden rounded-3xl bg-black md:block"
                         aria-hidden="true"
                     />
+                    
+
+                    {/* Mobile panel: hero image as background with a dark overlay so text stays readable */}
+                    <motion.div
+                        variants={panelVariants}
+                        className="absolute inset-0 -z-0 overflow-hidden rounded-3xl md:hidden"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src={heroSectionImg}
+                            alt=""
+                            className="h-full w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/75" />
+                    </motion.div>
 
                     <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
                         <motion.p
@@ -179,9 +195,9 @@ function HeroSection() {
                             Naigaon's Growth Corridor, Redefined
                         </motion.p>
 
-                        <h1 className="relative max-w-2xl overflow-hidden text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.05]">
+                        <h1 className="relative max-w-2xl pb-2 text-4xl font-bold leading-[1.2] tracking-tight text-white sm:text-5xl sm:leading-[1.15] md:text-6xl md:leading-[1.15]">
                             {headlineWords.map(({ text, accent }, i) => (
-                                <span key={i} className="mr-[0.25em] inline-block overflow-hidden">
+                                <span key={i} className="mr-[0.25em] inline-block overflow-hidden pb-1">
                                     <motion.span
                                         variants={wordVariants}
                                         className={`inline-block ${accent ? "text-green-500" : ""}`}
@@ -254,11 +270,12 @@ function HeroSection() {
                     </div>
                 </div>
 
+                {/* Desktop-only image column - hidden entirely on mobile since the image now lives behind the text panel */}
                 <motion.div
                     ref={imageRef}
                     variants={imageVariants}
                     style={{ y: imageY }}
-                    className="relative order-first flex min-h-[280px] items-center justify-center overflow-hidden rounded-2xl bg-gray-100 sm:min-h-[360px] md:order-none md:min-h-0 lg:min-h-0"
+                    className="relative hidden min-h-0 overflow-hidden rounded-2xl bg-gray-100 md:flex md:items-center md:justify-center"
                 >
                     <img
                         src={heroSectionImg}

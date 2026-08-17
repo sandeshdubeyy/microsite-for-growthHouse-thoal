@@ -10,15 +10,16 @@ import Gallery from "../components/sections/Gallery";
 import LeadForm from "../components/sections/LeadForm";
 import FAQ from "../components/sections/FAQ";
 import Footer from "../components/Footer";
+import LeadPopup from "../components/sections/LeadPopUp";
 
 function LandingPage() {
     return (
         <>
+            <LeadPopup />
             <Navbar />
             <main>
                 <HeroSection />
                 <ProjectSnapshot />
-                <ProjectHighlights />
                 <Amenities />
                 <LocationConnectivity />
                 <FloorPlans />

@@ -70,7 +70,7 @@ function FloorPlans() {
 
     return (
         <section id="floor-plans" className="px-4 sm:px-6 md:px-12 lg:px-16">
-            <div className="py-12 sm:py-16 md:py-20">
+            <div className="py-6 sm:py-8 md:py-10">
                 {/* Header - black band, border beam, self-drawing green curve, green title */}
                 <div className="relative mb-10 overflow-hidden rounded-2xl bg-black px-6 py-12 text-center sm:mb-12 sm:px-10 sm:py-16">
                     {/* Border beam */}

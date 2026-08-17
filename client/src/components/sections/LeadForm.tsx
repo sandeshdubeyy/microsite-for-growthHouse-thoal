@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { CheckCircle2, ShieldCheck, Users, Award } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import enquireImg from "../../assets/images/enquire.png";
 
 function LeadForm() {
     const [formData, setFormData] = useState({
@@ -58,7 +59,7 @@ function LeadForm() {
 
     return (
         <section id="enquire" className="px-4 sm:px-6 md:px-12 lg:px-16">
-            <div className="py-12 sm:py-16 md:py-20">
+            <div className="py-6 sm:py-8 md:py-10">
                 {/* Header - black band, border beam, SVG pattern, green accent */}
                 <div className="relative mb-10 overflow-hidden rounded-2xl bg-black px-6 py-12 text-center sm:mb-12 sm:px-10 sm:py-16">
                     {/* Border beam */}
@@ -104,7 +105,7 @@ function LeadForm() {
                     </div>
                 </div>
 
-                {/* Split layout: trust panel (left) + form (right) */}
+                {/* Split layout: form (left) + image (right) */}
                 <div className="mx-auto grid max-w-5xl grid-cols-1 items-stretch gap-8 md:grid-cols-2 md:gap-10">
                     {/* LEFT - Form */}
                     <div className="rounded-2xl border border-black p-6 sm:p-8">
@@ -234,41 +235,19 @@ function LeadForm() {
                         </AnimatePresence>
                     </div>
 
-
-                    {/* RIGHT - Trust panel */}
-                    <div className="flex flex-col justify-center rounded-2xl border border-black bg-gray-50 p-6 sm:p-8">
-                        <h3 className="text-xl font-bold sm:text-2xl">
-                            Take the First Step
-                        </h3>
-                        <p className="mt-3 text-sm text-gray-600 sm:text-base">
-                            Share your details and our team will connect with you to walk you through
-                            pricing, floor plans, and availability.
-                        </p>
-
-                        <div className="mt-8 space-y-5">
-                            <div className="flex items-center gap-3">
-                                <ShieldCheck className="h-5 w-5 shrink-0 text-green-500" />
-                                <span className="text-sm font-medium sm:text-base">
-                                    MahaRERA Registered — P99000080106
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Users className="h-5 w-5 shrink-0 text-green-500" />
-                                <span className="text-sm font-medium sm:text-base">
-                                    7,500+ Happy Consumers
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Award className="h-5 w-5 shrink-0 text-green-500" />
-                                <span className="text-sm font-medium sm:text-base">
-                                    India's Largest Land Buyer in 2024
-                                </span>
-                            </div>
-                        </div>
+                    {/* RIGHT - Image, centered, black border, not full height */}
+                    <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center rounded-2xl border border-black p-2">
+                            <img
+                            src={enquireImg}
+                            alt="Enquire"
+                            className="max-h-full w-auto rounded-lg object-contain"
+                            />
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+        </section >
     );
 }
 

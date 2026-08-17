@@ -98,7 +98,7 @@ function ProjectHighlights() {
 
     return (
         <section className="px-4 sm:px-6 md:px-12 lg:px-16">
-            <div className="py-12 sm:py-16 md:py-20">
+            <div className="py-6 sm:py-8 md:py-10">
                 <div
                     className="relative"
                     onMouseMove={handleMouseMove}

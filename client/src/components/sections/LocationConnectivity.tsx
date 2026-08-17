@@ -93,7 +93,7 @@ function CountUp({
 function LocationConnectivity() {
     return (
         <section id="location" className="px-4 sm:px-6 md:px-12 lg:px-16">
-            <div className="py-12 sm:py-16 md:py-20">
+            <div className="py-6 sm:py-8 md:py-10">
                 {/* Header - black band, border beam, self-drawing green curve only */}
                 <motion.div
                     initial="hidden"
@@ -159,7 +159,7 @@ function LocationConnectivity() {
                 </motion.div>
 
                 {/* Map + Info split — map takes 2.5/4, text takes 1.5/4, both stretched to equal height */}
-                <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-[2.5fr_1.5fr] md:gap-10">
+                <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-[2fr_2fr] md:gap-10">
                     {/* Map - animated draw-in border + fade/scale entrance */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.97 }}
@@ -203,7 +203,7 @@ function LocationConnectivity() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-60px" }}
                         variants={listVariants}
-                        className="flex flex-col rounded-2xl border border-black p-5 sm:p-6"
+                        className="flex min-w-0 flex-col rounded-2xl border border-black p-5 sm:p-6"
                     >
                         <motion.h3 variants={itemVariants} className="mb-6 text-lg font-bold sm:text-xl">
                             Connectivity Highlights
@@ -231,16 +231,16 @@ function LocationConnectivity() {
                                 className="relative flex h-10 items-end overflow-hidden border-b-2 border-black"
                             >
                                 <motion.div
-                                    className="flex w-max items-end gap-16"
-                                    animate={{ x: ["0%", "-50%"] }}
-                                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                    className="flex w-max items-end"
+                                    animate={{ x: ["0%", "-150%"] }}
+                                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                                 >
-                                    {[0, 1, 2, 3].map((i) => (
+                                    {[...Array(16)].map((_, i) => (
                                         <img
                                             key={i}
                                             src={train}
                                             alt=""
-                                            className="block h-6 w-auto shrink-0 object-contain object-bottom"
+                                            className="block h-6 w-auto shrink-0 object-contain object-bottom mr-8"
                                         />
                                     ))}
                                 </motion.div>
