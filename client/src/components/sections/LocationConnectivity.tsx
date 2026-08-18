@@ -21,8 +21,8 @@ const connectivityInfo = [
     {
         icon: Route,
         title: "Upcoming Infrastructure",
-        statValue: 6,
-        statSuffix: "+ projects",
+        statValue: 12,
+        statSuffix: "+ mega infrastructure projects",
         description: "Bullet Train, Metro Line 7, Coastal Road, Twin Tunnel, and more.",
     },
     {

@@ -46,9 +46,30 @@ function FloorPlans() {
     const floorPlanImages = [floorPlan, bhk1, bhk2, bhk2rise, bhk1];
 
     const floorPlans = [
-        { config: "1 BHK Growth Home", carpet: "322 - 485 SqFt", price: "₹ 32.99 Lakh", showPrice: true },
-        { config: "2 BHK Growth Home", carpet: "485 - 621 SqFt", price: "₹ 49.99 Lakh", showPrice: false },
-        { config: "2 BHK Peak/XL Home", carpet: "620 - 700 SqFt", price: "₹ 60.00 Lakh", showPrice: false },
+        {
+            config: "1 BHK Growth",
+            carpet: "323 SqFt Carpet • 353 SqFt Usable",
+            price: "₹ 39.99 Lakhs",
+            showPrice: true,
+        },
+        {
+            config: "2 BHK Growth",
+            carpet: "485 SqFt",
+            price: "₹ 52.99 Lakhs",
+            showPrice: false,
+        },
+        {
+            config: "2 BHK Rise",
+            carpet: "621 SqFt",
+            price: "₹ 72.99 Lakhs",
+            showPrice: false,
+        },
+        {
+            config: "2 BHK Peak",
+            carpet: "699 SqFt",
+            price: "₹ 82.99 Lakhs",
+            showPrice: false,
+        },
     ];
 
     const handlePrev = () => {
@@ -197,7 +218,7 @@ function FloorPlans() {
                                         <th className="pb-4 text-xs font-bold uppercase tracking-wide sm:text-sm">
                                             Config.
                                         </th>
-                                        <th className="pb-4 text-xs font-bold uppercase tracking-wide sm:text-sm">
+                                        <th className="pb-4 text-xs font-bold uppercase tracking-wide sm:text-sm flex justify-center">
                                             Carpet
                                         </th>
                                         <th className="pb-4 text-right text-xs font-bold uppercase tracking-wide sm:text-sm">
@@ -211,7 +232,7 @@ function FloorPlans() {
                                             <td className="py-4 pr-3 text-xs font-medium sm:text-sm">
                                                 {plan.config}
                                             </td>
-                                            <td className="py-4 pr-3 text-xs text-gray-600 sm:text-sm">
+                                            <td className="py-4 pr-3 text-xs text-gray-600 sm:text-sm flex justify-center">
                                                 {plan.carpet}
                                             </td>
                                             <td className="py-4 text-right">

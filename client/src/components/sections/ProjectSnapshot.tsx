@@ -47,9 +47,9 @@ function CountUp({
 }
 
 const stats = [
-    { icon: Landmark, label: "Land Parcel", value: 12.7, suffix: "+ acres" },
+    { icon: Landmark, label: "Land Parcel", value: 12.5, suffix: " acres" },
     { icon: Building, label: "Towers", value: 9, suffix: "+" },
-    { icon: Layers, label: "Floors", value: 35, suffix: "+ storey" },
+    { icon: Layers, label: "Floors", value: 2, prefix: "G+", suffix: "+35" },
     { icon: Home, label: "Total Units", value: 500, suffix: "+" },
     { icon: LayoutGrid, label: "Configurations", value: 4, suffix: " Types" },
     { icon: Sparkles, label: "Amenities", value: 80, suffix: "+" },
@@ -101,8 +101,8 @@ function ProjectSnapshot() {
                             <span className="text-white">— A New Chapter In Growth Housing</span>
                         </h2>
                         <p className="mt-3 text-sm leading-6 text-gray-300 sm:text-base sm:leading-7">
-                            Set across a 12.7-acre gated township in Naigaon, this is HoABL's vision
-                            for everyday living — 9 highrise towers rising G+35 storeys, built for
+                            Set across 12.5 acres of land parcels in Naigaon, this is HoABL's vision
+                            for everyday living — 9 highrise towers rising G+2+35 storeys, built for
                             Mumbaikars who see this address as their next big move.
                         </p>
                     </div>

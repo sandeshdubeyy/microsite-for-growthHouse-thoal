@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
-import app from "./app.js";
-import connectDB from "./config/db.config.js";
-import { startZohoSyncJob } from "./jobs/zohoSync.job.js";
+
 dotenv.config();
+
+import app from "./app.js";
+import connectDB from "./configs/db.config.js";
+import { startZohoSyncJob } from "./jobs/zohoSync.job.js";
 
 const PORT = process.env.PORT || 5000;
 
