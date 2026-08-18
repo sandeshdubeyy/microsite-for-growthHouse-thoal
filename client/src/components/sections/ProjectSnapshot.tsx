@@ -1,17 +1,8 @@
 import { Landmark, Building, Layers, Home, Sparkles, LayoutGrid, Tag, CalendarClock } from "lucide-react";
-import { motion, useInView, animate, type Variants } from "motion/react";
+import { motion, useInView, animate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import projectSnapshotImg from "../../assets/images/projectSnapshot.png";
 import projectSnapshot2Img from "../../assets/images/projectSnapshot2.png";
-
-const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
-};
 
 const marqueeTags = [
     "Sustainable",
