@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import Lead from "../models/lead.model.js";
+import { sendLeadToZoho } from "../services/zoho.services.js";
 
 export const createLead = async (
     req: Request,
@@ -8,7 +9,6 @@ export const createLead = async (
     try {
         const { name, email, mobile } = req.body;
 
-        // Check required fields
         if (!name || !email || !mobile) {
             res.status(400).json({
                 success: false,
@@ -17,7 +17,6 @@ export const createLead = async (
             return;
         }
 
-        // Validate name
         if (typeof name !== "string" || name.trim().length < 2) {
             res.status(400).json({
                 success: false,
@@ -26,7 +25,6 @@ export const createLead = async (
             return;
         }
 
-        // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (
@@ -40,7 +38,6 @@ export const createLead = async (
             return;
         }
 
-        // Validate Indian mobile number
         const mobileRegex = /^[6-9]\d{9}$/;
 
         if (
@@ -54,18 +51,14 @@ export const createLead = async (
             return;
         }
 
-        // Format data before saving/checking
         const formattedName = name.trim();
         const formattedEmail = email.trim().toLowerCase();
         const formattedMobile = mobile.trim();
 
-        // Calculate the time 12 hours ago
         const twelveHoursAgo = new Date(
             Date.now() - 12 * 60 * 60 * 1000
         );
 
-        // Block only if BOTH email and mobile match
-        // within the last 12 hours
         const existingLead = await Lead.findOne({
             email: formattedEmail,
             mobile: formattedMobile,
@@ -83,18 +76,41 @@ export const createLead = async (
             return;
         }
 
-        // Create new lead
+        // Try sending to Zoho first
+        try {
+            await sendLeadToZoho({
+                name: formattedName,
+                email: formattedEmail,
+                mobile: formattedMobile,
+            });
+
+            res.status(201).json({
+                success: true,
+                message: "Lead sent successfully",
+            });
+            return;
+
+        } catch (error) {
+            console.error(
+                "Zoho failed, saving lead to MongoDB:",
+                error
+            );
+        }
+
+        // Zoho failed → save in MongoDB
         const lead = await Lead.create({
             name: formattedName,
             email: formattedEmail,
             mobile: formattedMobile,
+            synced: false,
         });
 
         res.status(201).json({
             success: true,
-            message: "Lead created successfully",
+            message: "Lead saved successfully",
             data: lead,
         });
+
     } catch (error) {
         console.error("Error creating lead:", error);
 

@@ -20,7 +20,7 @@ function Footer() {
         <footer className="mt-16 bg-black text-white sm:mt-20">
             <div className="py-10 sm:py-12">
                 {/* Logos Section */}
-                <div className="mb-10 flex items-end justify-center gap-10 border-b border-gray-700 pb-8 sm:gap-12">
+                <div className="mb-10 flex items-end justify-center gap-10 border-b border-gray-700 pb-8 sm:gap-12 px-6">
                     <div className="flex h-16 items-center rounded-lg bg-white px-4 py-2">
                         <img src={logo} alt="Logo 1" className="h-10 w-auto object-contain" />
                     </div>
