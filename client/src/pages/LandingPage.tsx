@@ -2,7 +2,6 @@
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/sections/HeroSection";
 import ProjectSnapshot from "../components/sections/ProjectSnapshot";
-import ProjectHighlights from "../components/sections/ProjectHighlights";
 import Amenities from "../components/sections/Amenities";
 import LocationConnectivity from "../components/sections/LocationConnectivity";
 import FloorPlans from "../components/sections/FloorPlans";
