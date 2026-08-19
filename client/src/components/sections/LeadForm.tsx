@@ -55,6 +55,8 @@ function LeadForm() {
             const data = await response.json();
 
             if (response.ok) {
+                setSuccess(true);
+
                 setFormData({
                     name: "",
                     email: "",
@@ -62,7 +64,10 @@ function LeadForm() {
                     consent: true,
                     website: "",
                 });
-                navigate("/thank-you");
+
+                setTimeout(() => {
+                    navigate("/thank-you");
+                }, 1500);
             } else {
                 setMessage(
                     data.message ||
