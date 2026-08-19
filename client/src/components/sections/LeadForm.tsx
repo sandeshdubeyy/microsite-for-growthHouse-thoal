@@ -25,6 +25,14 @@ function LeadForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const nameParts = formData.name.trim().split(/\s+/);
+
+        if (nameParts.length < 2) {
+            setMessage("Please enter your full name.");
+            return;
+        }
+
         setLoading(true);
         setMessage("");
 
@@ -41,16 +49,24 @@ function LeadForm() {
 
             if (response.ok) {
                 setSuccess(true);
-                setMessage("Thank you! Your enquiry has been submitted successfully.");
-                setFormData({ name: "", email: "", mobile: "", consent: true });
-                setTimeout(() => {
-                    window.location.href = "/thank-you";
-                }, 2000);
+
+                setFormData({
+                    name: "",
+                    email: "",
+                    mobile: "",
+                    consent: true,
+                });
             } else {
-                setMessage(data.message || "Error submitting form. Please try again.");
+                setMessage(
+                    data.message ||
+                    "Error submitting form. Please try again."
+                );
             }
         } catch (error) {
-            setMessage("Error submitting form. Please check your connection and try again.");
+            setMessage(
+                "Error submitting form. Please check your connection and try again."
+            );
+
             console.error("Form submission error:", error);
         } finally {
             setLoading(false);
@@ -239,14 +255,14 @@ function LeadForm() {
                     <div className="flex items-center justify-center">
                         <div className="flex items-center justify-center rounded-2xl border border-black p-2">
                             <img
-                            src={enquireImg}
-                            alt="Enquire"
-                            className="max-h-full w-auto rounded-lg object-contain"
+                                src={enquireImg}
+                                alt="Enquire"
+                                className="max-h-full w-auto rounded-lg object-contain"
                             />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </section >
     );
 }

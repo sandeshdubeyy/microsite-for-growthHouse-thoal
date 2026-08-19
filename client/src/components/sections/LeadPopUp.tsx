@@ -5,7 +5,7 @@ import enquireImg from "../../assets/images/enquire.png";
 
 function LeadPopup() {
     const [isOpen, setIsOpen] = useState(false);
-    const [formData, setFormData] = useState({ name: "", email: "", mobile: "" });
+    const [formData, setFormData] = useState({ name: "", email: "", mobile: "", consent: true });
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
@@ -22,8 +22,12 @@ function LeadPopup() {
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
     };
 
     const handleClose = () => {
@@ -32,13 +36,23 @@ function LeadPopup() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const nameParts = formData.name.trim().split(/\s+/);
+
+        if (nameParts.length < 2) {
+            setMessage("Please enter your full name.");
+            return;
+        }
+
         setLoading(true);
         setMessage("");
 
         try {
             const response = await fetch("http://localhost:5000/api/leads", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -46,15 +60,28 @@ function LeadPopup() {
 
             if (response.ok) {
                 setSuccess(true);
-                setFormData({ name: "", email: "", mobile: "" });
+
+                setFormData({
+                    name: "",
+                    email: "",
+                    mobile: "",
+                    consent: true,
+                });
+
                 setTimeout(() => {
                     setIsOpen(false);
                 }, 2000);
             } else {
-                setMessage(data.message || "Error submitting form. Please try again.");
+                setMessage(
+                    data.message ||
+                    "Error submitting form. Please try again."
+                );
             }
         } catch (error) {
-            setMessage("Error submitting form. Please check your connection and try again.");
+            setMessage(
+                "Error submitting form. Please check your connection and try again."
+            );
+
             console.error("Popup form submission error:", error);
         } finally {
             setLoading(false);
@@ -195,6 +222,26 @@ function LeadPopup() {
                                                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-500 transition-all peer-focus:top-3 peer-focus:text-xs peer-focus:text-green-600 peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:text-xs"
                                                 >
                                                     Mobile Number
+                                                </label>
+                                            </div>
+
+                                            {/* Consent */}
+                                            <div className="flex items-start gap-3">
+                                                <input
+                                                    type="checkbox"
+                                                    id="popup-consent"
+                                                    name="consent"
+                                                    checked={formData.consent}
+                                                    onChange={handleChange}
+                                                    className="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-black"
+                                                />
+
+                                                <label
+                                                    htmlFor="popup-consent"
+                                                    className="cursor-pointer text-xs leading-5 text-gray-500"
+                                                >
+                                                    By submitting an enquiry, I authorize HoABL to contact me via
+                                                    Call, SMS, WhatsApp, Emailer or any other relevant medium.
                                                 </label>
                                             </div>
 
