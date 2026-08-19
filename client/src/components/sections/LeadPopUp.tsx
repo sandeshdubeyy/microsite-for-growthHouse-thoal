@@ -7,7 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 function LeadPopup() {
     const [isOpen, setIsOpen] = useState(false);
-    const [formData, setFormData] = useState({ name: "", email: "", mobile: "", consent: true });
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        mobile: "",
+        consent: true,
+        website: "",
+    });
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
@@ -70,8 +76,8 @@ function LeadPopup() {
                     email: "",
                     mobile: "",
                     consent: true,
+                    website: "",
                 });
-
                 setTimeout(() => {
                     navigate("/thank-you");
                 }, 1500);
@@ -160,6 +166,32 @@ function LeadPopup() {
                                             onSubmit={handleSubmit}
                                             className="space-y-5"
                                         >
+                                            <div
+                                                style={{
+                                                    position: "absolute",
+                                                    left: "-9999px",
+                                                }}
+                                                aria-hidden="true"
+                                            >
+                                                <label htmlFor="website">
+                                                    Website
+                                                </label>
+
+                                                <input
+                                                    type="text"
+                                                    id="popup-website"
+                                                    name="website"
+                                                    tabIndex={-1}
+                                                    autoComplete="off"
+                                                    value={formData.website}
+                                                    onChange={(e) =>
+                                                        setFormData({
+                                                            ...formData,
+                                                            website: e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                            </div>
                                             <div>
                                                 <h3 className="text-xl font-bold sm:text-2xl">
                                                     Don't Miss Out

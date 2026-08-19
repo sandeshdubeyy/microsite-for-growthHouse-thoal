@@ -1,13 +1,22 @@
 import type { Request, Response } from "express";
 import Lead from "../models/lead.model.js";
 import { sendLeadToZoho } from "../services/zoho.services.js";
+import LeadDuplicateCache from "../models/leadDuplicateCache.model.js";
 
 export const createLead = async (
     req: Request,
     res: Response
 ): Promise<void> => {
     try {
-        const { name, email, mobile } = req.body;
+        const { name, email, mobile, website } = req.body;
+        
+        if (website) {
+            res.status(400).json({
+                success: false,
+                message: "Invalid submission",
+            });
+            return;
+        }
 
         if (!name || !email || !mobile) {
             res.status(400).json({
@@ -55,25 +64,27 @@ export const createLead = async (
         const formattedEmail = email.trim().toLowerCase();
         const formattedMobile = mobile.trim();
 
-        const twelveHoursAgo = new Date(
-            Date.now() - 12 * 60 * 60 * 1000
-        );
-
-        const existingLead = await Lead.findOne({
-            email: formattedEmail,
-            mobile: formattedMobile,
-            createdAt: {
-                $gte: twelveHoursAgo,
-            },
-        });
-
-        if (existingLead) {
-            res.status(429).json({
-                success: false,
-                message:
-                    "You have already submitted an enquiry recently. Please try again later.",
+        try {
+            await LeadDuplicateCache.create({
+                email: formattedEmail,
+                mobile: formattedMobile,
             });
-            return;
+        } catch (error: unknown) {
+            if (
+                typeof error === "object" &&
+                error !== null &&
+                "code" in error &&
+                error.code === 11000
+            ) {
+                res.status(429).json({
+                    success: false,
+                    message:
+                        "You have already submitted an enquiry recently. Please try again later.",
+                });
+                return;
+            }
+
+            throw error;
         }
 
         // Try sending to Zoho first

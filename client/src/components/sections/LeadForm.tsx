@@ -11,6 +11,7 @@ function LeadForm() {
         email: "",
         mobile: "",
         consent: true,
+        website: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -59,8 +60,8 @@ function LeadForm() {
                     email: "",
                     mobile: "",
                     consent: true,
+                    website: "",
                 });
-
                 navigate("/thank-you");
             } else {
                 setMessage(
@@ -157,6 +158,32 @@ function LeadForm() {
                                     onSubmit={handleSubmit}
                                     className="space-y-6"
                                 >
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            left: "-9999px",
+                                        }}
+                                        aria-hidden="true"
+                                    >
+                                        <label htmlFor="website">
+                                            Website
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="lead-website"
+                                            name="website"
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                            value={formData.website}
+                                            onChange={(e) =>
+                                                setFormData({
+                                                    ...formData,
+                                                    website: e.target.value,
+                                                })
+                                            }
+                                        />
+                                    </div>
                                     {/* Name Field - floating label */}
                                     <div className="relative">
                                         <input
