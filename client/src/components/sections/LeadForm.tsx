@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { CheckCircle2 } from "lucide-react";
 import enquireImg from "../../assets/images/enquire.png";
 import { API_URL } from "../../configs/api.config";
+import { useNavigate } from "react-router-dom";
 
 function LeadForm() {
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ function LeadForm() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -52,14 +54,14 @@ function LeadForm() {
             const data = await response.json();
 
             if (response.ok) {
-                setSuccess(true);
-
                 setFormData({
                     name: "",
                     email: "",
                     mobile: "",
                     consent: true,
                 });
+
+                navigate("/thank-you");
             } else {
                 setMessage(
                     data.message ||

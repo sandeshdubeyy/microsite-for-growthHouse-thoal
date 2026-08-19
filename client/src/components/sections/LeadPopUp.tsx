@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, CheckCircle2 } from "lucide-react";
 import enquireImg from "../../assets/images/enquire.png";
 import { API_URL } from "../../configs/api.config";
+import { useNavigate } from "react-router-dom";
 
 function LeadPopup() {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ function LeadPopup() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
-
+    const navigate = useNavigate();
     // Fires twice every page load, regardless of past visits/refreshes - no persistence.
     useEffect(() => {
         const firstTimer = setTimeout(() => setIsOpen(true), 20000);
@@ -72,8 +73,8 @@ function LeadPopup() {
                 });
 
                 setTimeout(() => {
-                    setIsOpen(false);
-                }, 2000);
+                    navigate("/thank-you");
+                }, 1500);
             } else {
                 setMessage(
                     data.message ||
