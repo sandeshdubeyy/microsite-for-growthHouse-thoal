@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CheckCircle2 } from "lucide-react";
 import enquireImg from "../../assets/images/enquire.png";
+import { API_URL } from "../../configs/api.config";
 
 function LeadForm() {
     const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ function LeadForm() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/leads`,
+                `${API_URL}/api/leads`,
                 {
                     method: "POST",
                     headers: {

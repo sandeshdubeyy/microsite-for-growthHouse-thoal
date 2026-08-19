@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, CheckCircle2 } from "lucide-react";
 import enquireImg from "../../assets/images/enquire.png";
+import { API_URL } from "../../configs/api.config";
 
 function LeadPopup() {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ function LeadPopup() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/leads`,
+                `${API_URL}/api/leads`,
                 {
                     method: "POST",
                     headers: {
